@@ -24,3 +24,13 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.G1-cardart {
+  display: grid;
+  grid: 1fr;
+}
+
+.G1-cardart img {
+  grid-column: 1;
+  grid-row: 1;
+}
