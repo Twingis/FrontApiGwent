@@ -4,32 +4,40 @@ import Card from "./card";
 
 export default function CardList({ list }) {
   const [nameFilter, setNameFilter] = useState("");
-  let cards = [];
-  for (const card in list) {
-    cards.push(list[card]);
-  }
-  console.log(nameFilter);
-  cards = cards.filter((card) =>
+  const [rarityFilter, setRarityFilter] = useState("");
+
+  let cards = list.filter((card) =>
     accentFold(card.name.toLowerCase()).includes(
       accentFold(nameFilter.toLowerCase())
     )
   );
-  let cardsComponents = [];
-  let cpt = 0;
-  for (const card in cards) {
-    cardsComponents.push(
-      <Card html={cards[card].image} key={cpt} id={cards[card].id.card} />
-    );
-    cpt++;
+
+  if (rarityFilter != "") {
+    cards = cards.filter((card) => card.attributes.rarity == rarityFilter);
   }
 
+  const cardsComponents = cards.map((card, index) => (
+    <Card html={card.image} key={index} id={card.id.card} />
+  ));
   return (
-    <div>
+    <div className="p-1">
       <input
         className="p-4 border-1"
         value={nameFilter}
         onChange={(e) => setNameFilter(e.target.value)}
       />
+      <select
+        className="p-1"
+        id="Rarity"
+        value={rarityFilter}
+        onChange={(e) => setRarityFilter(e.target.value)}
+      >
+        <option value="">Rareté</option>
+        <option value="Legendary">Légendaire</option>
+        <option value="Epic">Epique</option>
+        <option value="Rare">Rare</option>
+        <option value="Common">Ordinaire</option>
+      </select>
       <div className="flex flex-wrap p-12"> {cardsComponents} </div>
     </div>
   );

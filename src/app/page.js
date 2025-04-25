@@ -18,8 +18,12 @@ export default async function Home() {
       enumerable: true,
     });
   }
+  let cardsList = [];
+  for (const card in resultJson.response) {
+    cardsList.push(resultJson.response[card]);
+  }
 
-  return <CardList list={resultJson.response} />;
+  return <CardList list={cardsList} />;
 }
 
 function extractCard(htmlString) {
