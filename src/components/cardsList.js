@@ -5,12 +5,19 @@ import Card from "./card";
 export default function CardList({ list }) {
   const [nameFilter, setNameFilter] = useState("");
   const [rarityFilter, setRarityFilter] = useState("");
+  const [showColorFilter, setShowColorFilter] = useState(false);
+  const [colorFilter, setColorFilter] = useState("");
 
   let cards = list.filter((card) =>
     accentFold(card.name.toLowerCase()).includes(
       accentFold(nameFilter.toLowerCase())
     )
   );
+  let hidden = "";
+  if (!showColorFilter) {
+    hidden = "hidden";
+  }
+  console.log(hidden);
 
   if (rarityFilter != "") {
     cards = cards.filter((card) => card.attributes.rarity == rarityFilter);
@@ -24,7 +31,10 @@ export default function CardList({ list }) {
       <input
         className="p-4 border-1"
         value={nameFilter}
-        onChange={(e) => setNameFilter(e.target.value)}
+        onChange={(e) => {
+          setNameFilter(e.target.value);
+          setShowColorFilter(true);
+        }}
       />
       <select
         className="p-1"
@@ -38,6 +48,7 @@ export default function CardList({ list }) {
         <option value="Rare">Rare</option>
         <option value="Common">Ordinaire</option>
       </select>
+      <p className={hidden}>Bonjour</p>
       <div className="flex flex-wrap p-12"> {cardsComponents} </div>
     </div>
   );

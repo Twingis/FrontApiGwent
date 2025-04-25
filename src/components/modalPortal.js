@@ -8,7 +8,7 @@ export default function ModalPortal({ infos }) {
   return (
     <>
       <button className="border-6" onClick={() => setShowModal(true)}>
-        Editer
+        Éditer
       </button>
       {showModal &&
         createPortal(
