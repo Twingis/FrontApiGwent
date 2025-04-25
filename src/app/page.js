@@ -1,16 +1,25 @@
-import Card from "@/components/card";
+import CardList from "@/components/cardsList";
 import * as cheerio from "cheerio";
 
 export default async function Home() {
-  const data = await fetch(
+  const dataImage = await fetch(
     "https://api.gwent.one/?key=data&response=html&html=info&class=rounded&version=1.0.0.15"
   );
-  const result = await data.text();
+  const result = await dataImage.text();
   const cards = extractCard(result);
-  const cardList = cards.map((card, index) => (
-    <Card html={card.html} id={card.id} key={index}></Card>
-  ));
-  return <div className="flex flex-wrap p-4">{cardList}</div>;
+
+  const dataJson = await fetch(
+    "https://api.gwent.one/?key=data&version=1.0.0.15&language=fr"
+  );
+  const resultJson = await dataJson.json();
+  for (const card in resultJson.response) {
+    Object.defineProperty(resultJson.response[card], "image", {
+      value: cards[card].html,
+      enumerable: true,
+    });
+  }
+
+  return <CardList list={resultJson.response} />;
 }
 
 function extractCard(htmlString) {

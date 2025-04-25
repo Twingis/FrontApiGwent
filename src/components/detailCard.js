@@ -1,3 +1,5 @@
+import ModalPortal from "./modalPortal";
+
 export default async function DetailCard({ id }) {
   const cardImage = await retrieveCardImage(id);
   const cardInfo = await retrieveCardInfo(id);
@@ -9,8 +11,6 @@ export default async function DetailCard({ id }) {
   };
   const pStyle = styleFormat[cardInfo.attributes.color];
 
-  console.log(cardInfo);
-
   return (
     <div className="grid ">
       <div dangerouslySetInnerHTML={htmlImage}></div>
@@ -21,6 +21,7 @@ export default async function DetailCard({ id }) {
       <p className={pStyle}>Couleur : {cardInfo.attributes.color}</p>
       <p> Categorie : {cardInfo.category}</p>
       <p> Capacité : {cardInfo.ability} </p>
+      <ModalPortal infos={cardInfo} />
     </div>
   );
 }
@@ -59,3 +60,5 @@ function translateFaction(faction) {
       return "Nilfgaard";
   }
 }
+
+function handleClik() {}

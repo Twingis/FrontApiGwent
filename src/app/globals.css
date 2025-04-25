@@ -34,3 +34,7 @@ body {
   grid-column: 1;
   grid-row: 1;
 }
+
+.inputText {
+  @apply border-2 border-blue-300 m-1;
+}
