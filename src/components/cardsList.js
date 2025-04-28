@@ -44,7 +44,7 @@ export default function CardList({ list }) {
       >
         <option value="">Rareté</option>
         <option value="Legendary">Légendaire</option>
-        <option value="Epic">Epique</option>
+        <option value="Epic">Épique</option>
         <option value="Rare">Rare</option>
         <option value="Common">Ordinaire</option>
       </select>
